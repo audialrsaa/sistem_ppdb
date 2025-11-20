@@ -1,9 +1,11 @@
-import NavbarLand from "@/component/navbarland";
-import HeaderLand from "@/component/headerlan";
-import PeriodePendaftaran from "@/component/periodeland";
-import Fasilitas from "@/component/fasilitaslan";
-import Jurusan from "@/component/jurusanlan";
-import Footer from "@/component/footer";
+import NavbarLand from "@/component/landComponent/navbarland";
+import HeaderLand from "@/component/landComponent/headerlan";
+import PeriodePendaftaran from "@/component/landComponent/periodeland";
+import Fasilitas from "@/component/landComponent/fasilitaslan";
+import Jurusan from "@/component/landComponent/jurusanlan";
+import Footer from "@/component/landComponent/footer";
+import Partners from "@/component/landComponent/collablan";
+import FAQ from "@/component/landComponent/faq";
 
 export default function Home() {
   return (
@@ -13,6 +15,8 @@ export default function Home() {
       <PeriodePendaftaran />
       <Fasilitas />
       <Jurusan />
+      <FAQ />
+      <Partners />
       <Footer />
     </main>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function NavbarLand() {
   return (
@@ -30,15 +31,17 @@ export default function NavbarLand() {
 
         <div className="flex items-center gap-4 mr-26">
 
-          <button className="
-            px-5 py-2 
-            bg-blue-900/90
-            rounded-full 
-            hover:bg-blue-800
-            transition
-          ">
-            Masuk
-          </button>
+          <Link href="/login">
+            <button className="
+              px-5 py-2 
+              bg-blue-900/90
+              rounded-full 
+              hover:bg-blue-800
+              transition
+            ">
+              Masuk
+            </button>
+          </Link>
         </div>
       </div>
     </div>

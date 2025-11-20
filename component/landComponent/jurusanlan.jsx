@@ -10,7 +10,6 @@ export default function Jurusan() {
       deskripsi:
         "Jurusan yang fokus pada administrasi jaringan, server, dan perangkat komputer.",
       spesifikasi: "Laptop minimal i5 RAM 8GB SSD 512GB",
-      seragam: "/images/jurusan/tkj-seragam.png",
     },
     {
       nama: "Rekayasa Perangkat Lunak (RPL)",
@@ -18,14 +17,12 @@ export default function Jurusan() {
       deskripsi:
         "Jurusan yang mempelajari pembuatan aplikasi, website, dan software modern.",
       spesifikasi: "Laptop minimal i5 RAM 8GB SSD 512GB Minimal Gen 10 keatas",
-      seragam: "/images/jurusan/rpl-seragam.png",
     },
     {
       nama: "Desain Komunikasi Visual (DKV)",
-      logo: "/images/jurusan/dkv-logo.png",
+      logo: "/images/logo/dkv.jpg",
       deskripsi: "Jurusan yang fokus pada desain grafis, ilustrasi, dan brand visual.",
       spesifikasi: "Laptop i7 RAM 16GB SSD 512GB Intel VGA",
-      seragam: "/images/jurusan/dkv-seragam.png",
     },
     {
       nama: "Animasi",
@@ -33,14 +30,12 @@ export default function Jurusan() {
       deskripsi:
         "Jurusan yang mempelajari animasi 2D/3D, modeling, dan production pipeline.",
       spesifikasi: "Laptop i7 RAM 16GB SSD 512GB Intel VGA",
-      seragam: "/images/jurusan/animasi-seragam.png",
     },
     {
       nama: "Produksi Siaran Program Televisi (PSPT)",
       logo: "/images/logo/broad.png",
       deskripsi: "Jurusan produksi video, broadcasting, audio, dan perfilman.",
       spesifikasi: "Laptop i7 RAM 16GB SSD 512GB Intel VGA",
-      seragam: "/images/jurusan/pspt-seragam.png",
     },
     {
       nama: "Teknik Elektronika Industri (TEI)",
@@ -48,7 +43,6 @@ export default function Jurusan() {
       deskripsi:
         "Jurusan di bidang otomasi industri, elektronika, dan sistem kontrol.",
       spesifikasi: "Laptop minimal i5 RAM 8GB SSD 512GB",
-      seragam: "/images/jurusan/tei-seragam.png",
     },
   ];
 
@@ -79,7 +73,7 @@ export default function Jurusan() {
       >
         {jurusan.map((j, i) => (
           <div key={i} className="w-full shrink-0 px-5 md:px-20">
-            <div className="bg-white rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center justify-between shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-xl p-8 flex flex-col md:flex-row gap-8 items-center justify-center shadow-lg border border-gray-100 hover:shadow-md transition-shadow">
               <div className="flex justify-center w-full md:w-auto">
                 <div className="w-32 h-32 bg-blue-50 rounded-xl flex items-center justify-center p-4 border border-blue-100">
                   <img
@@ -107,16 +101,6 @@ export default function Jurusan() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   <p className="font-medium text-gray-700 text-sm">{j.spesifikasi}</p>
-                </div>
-              </div>
-
-              <div className="flex justify-center w-full md:w-auto">
-                <div className="w-28 h-36 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center border border-gray-200">
-                  <img
-                    src={j.seragam}
-                    alt={`Seragam ${j.nama}`}
-                    className="w-full h-full object-cover"
-                  />
                 </div>
               </div>
             </div>
