@@ -4,8 +4,7 @@ export default function PetugasLayout({ children }) {
   return (
     <div className="flex">
       <Sidebar />
-
-      <main className="flex-1 min-h-screen p-6 bg-gray-100">
+      <main className="flex-1 p-6 bg-white min-h-screen">
         {children}
       </main>
     </div>

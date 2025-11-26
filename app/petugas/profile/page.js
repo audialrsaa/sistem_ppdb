@@ -1,5 +1,3 @@
-"use client"
-
 import ProfilePetugas from "@/component/petugasComponent/profile";
 
 export default function ProfilePetugasPage () {

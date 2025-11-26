@@ -1,4 +1,3 @@
-"use client";
 
 import Sidebar from "@/component/petugas/sidebarpetugas";
 import DataTable from "@/component/petugas/dataTable";

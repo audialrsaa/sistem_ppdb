@@ -31,7 +31,21 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/user";
+    // 🔥 Ambil session setelah login
+    const session = await fetch("/api/auth/session").then((res) =>
+      res.json()
+    );
+
+    console.log("SESSION CLIENT:", session);
+
+    // 🔥 Redirect berdasarkan role
+    if (session?.user?.role === "admin") {
+      window.location.href = "/admin";
+    } else if (session?.user?.role === "petugas") {
+      window.location.href = "/petugas";
+    } else {
+      window.location.href = "/user";
+    }
   };
 
   return (
@@ -94,7 +108,9 @@ export default function LoginPage() {
           </div>
 
           {errors.global && (
-            <p className="text-red-300 text-center text-sm">{errors.global}</p>
+            <p className="text-red-300 text-center text-sm">
+              {errors.global}
+            </p>
           )}
 
           <button
