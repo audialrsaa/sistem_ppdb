@@ -104,7 +104,7 @@ export default function PpdbUserPage() {
             </h2>
             <div className="flex flex-col items-center justify-center py-4">
               <span className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                statusVerifikasi === "diterima"
+                statusVerifikasi === "verifikasi"
                   ? "bg-green-100 text-green-800 border border-green-200"
                   : statusVerifikasi === "ditolak"
                   ? "bg-red-100 text-red-800 border border-red-200"
@@ -112,13 +112,6 @@ export default function PpdbUserPage() {
               }`}>
                 {statusVerifikasi.toUpperCase()}
               </span>
-              <p className="text-sm text-gray-500 mt-3 text-center">
-                {statusVerifikasi === "diterima" 
-                  ? "Pendaftaran Anda telah diterima" 
-                  : statusVerifikasi === "ditolak"
-                  ? "Pendaftaran Anda ditolak"
-                  : "Sedang dalam proses verifikasi"}
-              </p>
             </div>
           </div>
         </div>
@@ -202,30 +195,6 @@ export default function PpdbUserPage() {
               </tbody>
             </table>
           </div>
-        </div>
-
-        {/* Tombol Aksi */}
-        <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
-          {statusVerifikasi === "pending" && (
-            <button
-              onClick={fetchData}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200 inline-flex items-center"
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              Refresh Status
-            </button>
-          )}
-          <a
-            href="/dashboard/ppdb/daftar"
-            className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition duration-200 inline-flex items-center justify-center"
-          >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Edit Pendaftaran
-          </a>
         </div>
       </div>
     </div>

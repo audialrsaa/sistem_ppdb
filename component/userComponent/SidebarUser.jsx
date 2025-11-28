@@ -16,7 +16,7 @@ export default function SidebarUser() {
   const menus = [
     { name: "Dashboard", path: "/user", icon: Home },
     { name: "PPDB", path: "/user/ppdb", icon: FileText },
-    { name: "Form Pembayaran", path: "/user/pembayaran", icon: CreditCard },
+    { name: "Berkas", path: "/user/pembayaran", icon: CreditCard },
     { name: "Profile", path: "/user/profile", icon: User },
   ];
 

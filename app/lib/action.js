@@ -21,7 +21,6 @@ export async function registerUser(formData) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // 🔥 Folder baru: public/formulir
     const uploadDir = path.join(process.cwd(), "public/formulir");
 
     if (!existsSync(uploadDir)) await mkdir(uploadDir, { recursive: true });
@@ -29,7 +28,6 @@ export async function registerUser(formData) {
     const uploadPath = path.join(uploadDir, file.name);
     await writeFile(uploadPath, buffer);
 
-    // 🔥 URL yang disimpan ke database
     const savedPath = "/formulir/" + file.name;
 
     const hash = bcrypt.hashSync(validated.data.password);
@@ -82,4 +80,44 @@ export async function registerUser(formData) {
   }
 
   redirect("/login");
+}
+
+export async function getDashboardStats() {
+  let conn;
+  try {
+    conn = await connection();
+    
+    // Total Pendaftar - semua data di tabel ppdb
+    const [totalPendaftar] = await conn.execute(
+      'SELECT COUNT(*) as count FROM ppdb'
+    );
+
+    // Lulus Verifikasi - berdasarkan status_pembayaran = 'verifikasi'
+    const [lulusVerifikasi] = await conn.execute(
+      `SELECT COUNT(*) as count FROM ppdb WHERE status_pembayaran = 'verifikasi'`
+    );
+
+    // Belum Diverifikasi - status_pembayaran = 'pending'
+    const [belumDiverifikasi] = await conn.execute(
+      `SELECT COUNT(*) as count FROM ppdb WHERE status_pembayaran = 'pending'`
+    );
+
+    return {
+      success: true,
+      data: {
+        totalPendaftar: totalPendaftar[0].count,
+        lulusVerifikasi: lulusVerifikasi[0].count,
+        belumDiverifikasi: belumDiverifikasi[0].count,
+      }
+    };
+
+  } catch (error) {
+    console.error("DASHBOARD STATS ERROR:", error);
+    return {
+      success: false,
+      error: error.message || "Gagal mengambil data dashboard"
+    };
+  } finally {
+    if (conn) await conn.end();
+  }
 }

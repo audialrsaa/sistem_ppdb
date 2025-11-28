@@ -19,9 +19,7 @@ export default function SidebarPetugas() {
   const menus = [
     { name: "Dashboard", path: "/petugas", icon: Home },
     { name: "Data Pendaftar", path: "/petugas/pendaftar", icon: FileText },
-    { name: "Verifikasi Pembayaran", path: "/petugas/pembayaran", icon: CreditCard },
-    { name: "Verifikasi Berkas", path: "/petugas/berkas", icon: FolderCheck },
-    { name: "Daftar Jurusan", path: "/petugas/jurusan", icon: BookOpen },
+    { name: "Verifikasi Berkas", path: "/petugas/pembayaran", icon: CreditCard },
     { name: "Profile", path: "/petugas/profile", icon: User },
   ];
 
