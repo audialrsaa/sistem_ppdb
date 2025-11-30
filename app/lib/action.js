@@ -8,6 +8,9 @@ import connection from "@/app/lib/db";
 import { redirect } from "next/navigation";
 import { registerSchema } from "@/app/lib/validations/registerSchema";
 
+// ======================================================
+// =============== REGISTER USER ========================
+// ======================================================
 export async function registerUser(formData) {
   try {
     const rawData = Object.fromEntries(formData);
@@ -32,7 +35,7 @@ export async function registerUser(formData) {
 
     const hash = bcrypt.hashSync(validated.data.password);
 
-    const conn = await connection(); 
+    const conn = await connection();
     await conn.execute(
       `INSERT INTO users (
         nama,
@@ -67,9 +70,10 @@ export async function registerUser(formData) {
         validated.data.nama_orang_tua,
         validated.data.pekerjaan_orang_tua,
         validated.data.no_hp_ortu,
-        validated.data.no_hp_casis, savedPath, 
+        validated.data.no_hp_casis,
+        savedPath,
         validated.data.nama_pengirim,
-        validated.data.nominal
+        validated.data.nominal,
       ]
     );
     await conn.end();
@@ -82,24 +86,28 @@ export async function registerUser(formData) {
   redirect("/login");
 }
 
+
+// ======================================================
+// ============== DASHBOARD STATS =======================
+// ======================================================
 export async function getDashboardStats() {
   let conn;
   try {
     conn = await connection();
     
-    // Total Pendaftar - semua data di tabel ppdb
+    // Total Pendaftar
     const [totalPendaftar] = await conn.execute(
       'SELECT COUNT(*) as count FROM ppdb'
     );
 
-    // Lulus Verifikasi - berdasarkan status_pembayaran = 'verifikasi'
+    // Lulus Verifikasi → status_verifikasi = 'verifikasi'
     const [lulusVerifikasi] = await conn.execute(
-      `SELECT COUNT(*) as count FROM ppdb WHERE status_pembayaran = 'verifikasi'`
+      `SELECT COUNT(*) as count FROM ppdb WHERE status_verifikasi = 'verifikasi'`
     );
 
-    // Belum Diverifikasi - status_pembayaran = 'pending'
+    // Belum Diverifikasi → status_verifikasi = 'pending'
     const [belumDiverifikasi] = await conn.execute(
-      `SELECT COUNT(*) as count FROM ppdb WHERE status_pembayaran = 'pending'`
+      `SELECT COUNT(*) as count FROM ppdb WHERE status_verifikasi = 'pending'`
     );
 
     return {

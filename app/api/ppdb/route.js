@@ -59,11 +59,11 @@ export async function POST(req) {
     const skl = await saveFile("skl");
     const bukti_pembayaran = await saveFile("bukti_pembayaran");
 
-    const status_pembayaran = "pending";
     const status_verifikasi = "pending";
 
     const conn = await connection();
 
+    // Generate ID pendaftar
     const [countRows] = await conn.execute("SELECT COUNT(*) AS total FROM ppdb");
     const idPendaftar = String(countRows[0].total + 1).padStart(3, "0");
 
@@ -78,8 +78,8 @@ export async function POST(req) {
       `INSERT INTO ppdb 
       (nomor_pendaftaran, nama_lengkap, nisn, tanggal_lahir, jurusan_id, user_id,
       ijazah, akta, kk, foto, rapor, skl, gelombang, bukti_pembayaran,
-      status_pembayaran, status_verifikasi, tanggal_upload)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+      status_verifikasi, tanggal_upload)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
       [
         nomor_pendaftaran,
         nama_lengkap,
@@ -95,7 +95,6 @@ export async function POST(req) {
         skl,
         gelombang,
         bukti_pembayaran,
-        status_pembayaran,
         status_verifikasi,
       ]
     );
@@ -106,7 +105,6 @@ export async function POST(req) {
       status: true,
       message: "Pendaftaran berhasil!",
       nomor_pendaftaran,
-      status_pembayaran,
       status_verifikasi,
     });
 
@@ -118,6 +116,8 @@ export async function POST(req) {
     );
   }
 }
+
+
 
 // ======================================================
 // =======================   GET   ======================
@@ -149,7 +149,6 @@ export async function GET() {
         rapor,
         skl,
         bukti_pembayaran,
-        status_pembayaran,
         status_verifikasi,
         tanggal_upload
       FROM ppdb
@@ -163,17 +162,7 @@ export async function GET() {
       return NextResponse.json(null, { status: 200 });
     }
 
-    const data = {
-      ...rows[0],
-      status_ijazah: rows[0].status_verifikasi,
-      status_akta: rows[0].status_verifikasi,
-      status_kk: rows[0].status_verifikasi,
-      status_foto: rows[0].status_verifikasi,
-      status_rapor: rows[0].status_verifikasi,
-      status_skl: rows[0].status_verifikasi,
-    };
-
-    return NextResponse.json(data);
+    return NextResponse.json(rows[0]);
 
   } catch (error) {
     console.error("GET PPDB ERROR:", error);
