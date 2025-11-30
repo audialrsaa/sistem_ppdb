@@ -1,10 +1,34 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function TableUser() {
-  const data = [
-    { id: 1, nama: "Budi", email: "budi@example.com" },
-    { id: 2, nama: "Siti", email: "siti@example.com" },
-  ];
+  const [data, setData] = useState([]);
+
+  const loadUsers = async () => {
+    const res = await fetch("/api/users");
+    const result = await res.json();
+    setData(result);
+  };
+
+  useEffect(() => {
+    loadUsers();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (!confirm("Yakin mau hapus user?")) return;
+
+    const res = await fetch(`/api/users/${id}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      alert("User berhasil dihapus!");
+      loadUsers();
+    } else {
+      alert("Gagal menghapus user");
+    }
+  };
 
   return (
     <div>
@@ -16,6 +40,10 @@ export default function TableUser() {
             <th className="p-3 text-left">ID</th>
             <th className="p-3 text-left">Nama</th>
             <th className="p-3 text-left">Email</th>
+            <th className="p-3 text-left">NISN</th>
+            <th className="p-3 text-left">Jenis Kelamin</th>
+            <th className="p-3 text-left">Asal Sekolah</th>
+            <th className="p-3 text-left">Aksi</th>
           </tr>
         </thead>
 
@@ -25,8 +53,28 @@ export default function TableUser() {
               <td className="p-3">{u.id}</td>
               <td className="p-3">{u.nama}</td>
               <td className="p-3">{u.email}</td>
+              <td className="p-3">{u.nisn}</td>
+              <td className="p-3">{u.jenis_kelamin}</td>
+              <td className="p-3">{u.asal_sekolah}</td>
+
+              <td className="p-3">
+                <button
+                  onClick={() => handleDelete(u.id)}
+                  className="bg-red-500 text-white px-3 py-1 rounded"
+                >
+                  Hapus
+                </button>
+              </td>
             </tr>
           ))}
+
+          {data.length === 0 && (
+            <tr>
+              <td colSpan="7" className="text-center p-4">
+                Tidak ada data.
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
