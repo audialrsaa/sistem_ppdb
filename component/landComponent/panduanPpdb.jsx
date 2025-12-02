@@ -1,5 +1,6 @@
 "use client";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
+import { Link } from "lucide-react";
 
 export default function PanduanPPDB() {
   const steps = [
@@ -105,9 +106,6 @@ export default function PanduanPPDB() {
                            duration-200 shadow-sm hover:shadow-md">
             Mulai Pendaftaran
           </button>
-          <p className="text-gray-500 text-sm mt-4">
-            Butuh bantuan? <span className="text-indigo-600 font-medium">ppdb@sekolah.sch.id</span>
-          </p>
         </div>
 
       </div>
