@@ -28,8 +28,8 @@ export default function PanduanPPDB() {
       description: "Masuk ke website dengan akun yang telah dibuat",
     },
     {
-      title: "7. Menu Daftar Ulang",
-      description: "Buka menu Daftar Ulang untuk tahap selanjutnya",
+      title: "7. Menu  PPDB",
+      description: "Buka menu PPDB untuk tahap selanjutnya",
     },
     {
       title: "8. Upload Berkas",
