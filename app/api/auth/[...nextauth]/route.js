@@ -6,17 +6,16 @@ import connection from "@/app/lib/db";
 async function getUserByEmail(email) {
   const conn = await connection();
 
-  // Cek di tabel users dulu
   const [user] = await conn.query(
     `SELECT id AS id, nama, email, password, role FROM users WHERE email = ?`,
     [email]
-  );
+  ); //cari user di table users by email 
   if (user.length) {
     await conn.end();
     return user[0];
-  }
+  } // kalau ketemu koneksi database ditutup terus return sesuai data yg ada
 
-  // Kalau tidak ditemukan, cek di tabel petugas
+  // kalau gaada, cek di table petugas
   const [staff] = await conn.query(
     `SELECT id_petugas AS id, nama, email, password, role FROM petugas WHERE email = ?`,
     [email]
@@ -24,10 +23,10 @@ async function getUserByEmail(email) {
   if (staff.length) {
     await conn.end();
     return staff[0];
-  }
+  } // kalau ketemu return data petugasnya
 
   await conn.end();
-  return null;
+  return null; //kalau g ktmu tutup koneksi dan return null
 }
 
 
@@ -38,7 +37,7 @@ export const authOptions = {
 
   session: {
     strategy: "jwt",
-  },
+  }, // session disimpen ke jwt
 
   providers: [
     CredentialsProvider({
@@ -47,20 +46,19 @@ export const authOptions = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
-      },
+      }, //field di form login
 
       async authorize(credentials) {
-        const { email, password } = credentials;
+        const { email, password } = credentials; // ambil email password yg dikirim login page
 
-        if (!email || !password) return null;
+        if (!email || !password) return null; // kalau ada yg kosong gagal login
 
         const user = await getUserByEmail(email);
-        if (!user) return null;
+        if (!user) return null; //→ klau g ada user/email g terdaftar gagal login
 
         const isValid = await compare(password, user.password);
         if (!isValid) return null;
 
-        // RETURN DATA YANG DIKELOLA DI SESSION
         return {
           id: user.id,
           email: user.email,
@@ -71,10 +69,6 @@ export const authOptions = {
     }),
   ],
 
-
-  // ======================================
-  // JWT CALLBACK → simpan role ke token
-  // ======================================
   callbacks: {
     async jwt({ token, user }) {
       if (user) {

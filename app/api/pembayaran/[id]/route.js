@@ -2,14 +2,11 @@ import connection from "@/app/lib/db";
 
 export async function PUT(req, context) {
   try {
-    const { id } = await context.params;
-    const { status_verifikasi } = await req.json();
+    const { id } = await context.params; //ambil param id dari url
+    const { status_verifikasi } = await req.json(); //ambil req json dri fe 
 
-    console.log("ID:", id)
-    console.log("STATUS:", status_verifikasi)
-
-    const allowed = ["pending", "verifikasi", "tolak"];
-    if (!allowed.includes(status_verifikasi)) {
+    const allowed = ["pending", "verifikasi", "tolak"]; //status yg diizinin  
+    if (!allowed.includes(status_verifikasi)) { // kalau yg dikirim bkn slh stu dri tadi lgsg tolak
       return Response.json({ message: "Status tidak valid!" }, { status: 400 });
     }
 
@@ -19,9 +16,9 @@ export async function PUT(req, context) {
       [status_verifikasi, id]
     );
 
-    return Response.json({ message: "Status berhasil diupdate" });
+    return Response.json({ message: "Status berhasil diupdate" }); //kalau berhasil tampilin pesan
   } catch (err) {
     console.error("UPDATE ERROR:", err);
-    return Response.json({ error: "Gagal update" }, { status: 500 });
+    return Response.json({ error: "Gagal update" }, { status: 500 }); // kalau gagal sm
   }
 }

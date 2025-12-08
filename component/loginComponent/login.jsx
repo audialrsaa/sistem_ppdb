@@ -43,8 +43,6 @@ export default function LoginPage() {
     } else {
       window.location.href = "/user";
     }
-
-    // console.log("SESSION CLIENT:", session.user.role);
   };
 
   return (

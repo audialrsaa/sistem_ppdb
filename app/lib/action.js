@@ -8,9 +8,7 @@ import connection from "@/app/lib/db";
 import { redirect } from "next/navigation";
 import { registerSchema } from "@/app/lib/validations/registerSchema";
 
-// ======================================================
-// =============== REGISTER USER ========================
-// ======================================================
+//regis
 export async function registerUser(formData) {
   try {
     const rawData = Object.fromEntries(formData);
@@ -87,9 +85,6 @@ export async function registerUser(formData) {
 }
 
 
-// ======================================================
-// ============== DASHBOARD STATS =======================
-// ======================================================
 export async function getDashboardStats() {
   let conn;
   try {

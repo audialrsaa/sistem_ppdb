@@ -6,8 +6,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 export async function GET() {
   try {
     const session = await getServerSession(authOptions);
-    if (!session || !session.user || session.user.role !== "petugas") {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    if (!session || !session.user || session.user.role !== "petugas") { //harus login dan yg login harus role petugas
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });   
     }
 
     const conn = await connection();
@@ -16,7 +16,7 @@ export async function GET() {
         id,
         nama_lengkap,
         nisn,
-        status_pembayaran
+        status_verifikasi
       FROM ppdb
       ORDER BY id DESC
     `);
